@@ -1,40 +1,21 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useTaskStore } from "@/stores/taskStore";
 
-const tasks = ref([
-  { id: 1, title: "Buy milk", completed: false },
-  { id: 2, title: "Learn Vue", completed: false },
-  { id: 3, title: "Push to GitHub", completed: false },
-]);
-
+const store = useTaskStore();
 const filter = ref("all");
+const newTask = ref("");
 
 const filteredTasks = computed(() => {
-  if (filter.value === "active") return tasks.value.filter((t) => !t.completed);
-  if (filter.value === "completed")
-    return tasks.value.filter((t) => t.completed);
-  return tasks.value;
+  if (filter.value === "active") return store.activeTasks;
+  if (filter.value === "completed") return store.completedTasks;
+  return store.tasks;
 });
-
-const newTask = ref("");
 
 const addTask = () => {
   if (newTask.value === "") return;
-  tasks.value.push({
-    id: Date.now(),
-    title: newTask.value,
-    completed: false,
-  });
+  store.addTask(newTask.value);
   newTask.value = "";
-};
-
-const deleteTask = (id) => {
-  tasks.value = tasks.value.filter((t) => t.id !== id);
-};
-
-const toggleTask = (id) => {
-  const task = tasks.value.find((t) => t.id === id);
-  task.completed = !task.completed;
 };
 </script>
 
@@ -75,10 +56,11 @@ const toggleTask = (id) => {
         <input
           type="checkbox"
           :checked="task.completed"
-          @change="toggleTask(task.id)"
+          @change="store.toggleTask(task.id)"
         />
+
         <span :class="{ completed: task.completed }">{{ task.title }}</span>
-        <button class="delete-btn" @click="deleteTask(task.id)">✕</button>
+        <button class="delete-btn" @click="store.deleteTask(task.id)">✕</button>
       </li>
     </ul>
   </div>
