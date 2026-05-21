@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import TasksView from "../views/TasksView.vue";
-import ProfileView from "../views/ProfileView.vue";
+import HomeView from "@/views/HomeView.vue";
+import TaskView from "@/views/TaskView.vue";
+import ProfileView from "@/views/ProfileView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: "/tasks",
       name: "tasks",
-      component: TasksView,
+      component: TaskView,
     },
     {
       path: "/profile",
