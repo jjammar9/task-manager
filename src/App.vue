@@ -1,13 +1,12 @@
 <script setup>
-import AppSidebar from './components/layout/AppSidebar.vue'
+import AppSidebar from "./components/layout/AppSidebar.vue";
 </script>
 
 <template>
   <div class="app-layout">
     <AppSidebar />
     <main class="main-content">
-       <RouterView />
-
+      <RouterView />
     </main>
   </div>
 </template>
@@ -21,6 +20,6 @@ import AppSidebar from './components/layout/AppSidebar.vue'
 .main-content {
   flex: 1;
   padding: 2rem;
-  background: var(--bg-secondary);
+  background: white;
 }
 </style>
