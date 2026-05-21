@@ -38,7 +38,7 @@ const filteredTasks = computed(() => {
       </button>
     </div>
 
-    <ul class="task-list">
+    <ul class="task-list" v-if="filteredTasks.length > 0">
       <TaskItem
         v-for="task in filteredTasks"
         :key="task.id"
@@ -47,6 +47,10 @@ const filteredTasks = computed(() => {
         @toggle="store.toggleTask"
       />
     </ul>
+
+    <div class="empty-state" v-else>
+      <p>🎉 No tasks here!</p>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -92,5 +96,14 @@ const filteredTasks = computed(() => {
   flex-direction: column;
   gap: 0.75rem;
   padding: 0;
+}
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
 }
 </style>
